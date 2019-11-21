@@ -1,5 +1,7 @@
 package com.dicedmelon.gradle.jacoco.android
 
+import com.hiya.plugins.JacocoAndroidPlugin
+import com.hiya.plugins.JacocoAndroidUnitTestReportExtension
 import org.gradle.api.Project
 import org.gradle.api.internal.file.collections.DirectoryFileTree
 import org.gradle.api.internal.plugins.PluginApplicationException

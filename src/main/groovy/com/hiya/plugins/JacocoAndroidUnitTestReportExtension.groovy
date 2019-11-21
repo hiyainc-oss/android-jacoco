@@ -1,4 +1,4 @@
-package com.dicedmelon.gradle.jacoco.android
+package com.hiya.plugins
 
 class JacocoAndroidUnitTestReportExtension {
 

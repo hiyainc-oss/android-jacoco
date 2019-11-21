@@ -1,5 +1,6 @@
 package com.dicedmelon.gradle.jacoco.android
 
+import com.hiya.plugins.JacocoAndroidPlugin
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
