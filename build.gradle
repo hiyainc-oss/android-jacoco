@@ -39,9 +39,24 @@ gradlePlugin {
   }
 }
 
-println("art = ${artifactory_contextUrl.replaceAll('/$', "")}")
+// TODO can replace with above once migrated to Gradle 6
+task sourcesJar(type: Jar) {
+  archiveClassifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task groovydocJar(type: Jar) {
+  archiveClassifier = 'javadoc'
+  from groovydoc
+}
 
 publishing {
+  publications {
+    pluginMaven(MavenPublication) {
+      artifact sourcesJar
+      artifact groovydocJar
+    }
+  }
   repositories {
     maven {
       // Publish here when you want to see what it looks like
@@ -70,9 +85,4 @@ jacocoTestReport {
     html.enabled false
     xml.enabled true
   }
-}
-
-task sourcesJar(type: Jar) {
-  archiveClassifier = 'sources'
-  from sourceSets.main.allSource
 }
