@@ -1,5 +1,6 @@
 plugins {
   id 'java-gradle-plugin'
+  id 'com.gradle.plugin-publish' version '0.10.1'
   id 'maven-publish'
   id 'groovy'
   id 'jacoco'
@@ -28,13 +29,27 @@ dependencies {
 }
 
 group = 'com.hiya'
-version = "0.1"
+version = "0.1.4"
 
 gradlePlugin {
   plugins {
     jacocoAndroid {
       id = "com.hiya.jacoco-android"
       implementationClass = "com.hiya.plugins.JacocoAndroidPlugin"
+    }
+  }
+}
+
+pluginBundle {
+  website = 'https://github.com/autonomousapps/jacoco-android-gradle-plugin'
+  vcsUrl = 'https://github.com/autonomousapps/jacoco-android-gradle-plugin'
+
+  description = 'Gradle plugin that creates JaCoCo test reports for Android unit tests'
+
+  plugins {
+    jacocoAndroid {
+      displayName = 'JaCoCo Plugin for Android'
+      tags = ['jacoco', 'android', 'testing', 'coverage']
     }
   }
 }
@@ -63,12 +78,18 @@ publishing {
       name = 'local'
       url = "$buildDir/repo"
     }
-    maven {
-      name = 'artifactory'
-      url = "${artifactory_contextUrl}hiya-libs-ivy-release-local"
-      credentials(PasswordCredentials) {
-        username = artifactory_user
-        password = artifactory_password
+
+    def theUrl = artifactory_contextUrl
+    def theUsername = artifactory_user
+    def thePassword = artifactory_password
+    if (theUrl && theUsername && thePassword) {
+      maven {
+        name = 'artifactory'
+        url = "${artifactory_contextUrl}hiya-libs-ivy-release-local"
+        credentials(PasswordCredentials) {
+          username = artifactory_user
+          password = artifactory_password
+        }
       }
     }
   }
