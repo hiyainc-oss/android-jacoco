@@ -8,23 +8,6 @@ In order to generate JaCoCo unit test coverage reports for Android projects you 
 
 ## Usage
 ```groovy
-buildscript {
-  repositories {
-    ...
-    maven {
-      credentials {
-        username "$artifactory_user"
-        password "$artifactory_password"
-      }
-      url "https://hiya.jfrog.io/hiya/maven-virtual"
-    }
-  }
-  dependencies {
-    ...
-    classpath 'com.hiya:jacoco-android:0.1'
-  }
-}
-
 plugins {
   id 'com.android.application'
   id 'com.hiya.jacoco-android'
