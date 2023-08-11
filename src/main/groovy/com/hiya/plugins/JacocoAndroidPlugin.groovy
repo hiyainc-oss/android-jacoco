@@ -85,19 +85,19 @@ class JacocoAndroidPlugin implements Plugin<ProjectInternal> {
     reportTask.reports {
       def destination = project.jacocoAndroidUnitTestReport.destination
       
-      csv.enabled project.jacocoAndroidUnitTestReport.csv.enabled
-      html.enabled project.jacocoAndroidUnitTestReport.html.enabled
-      xml.enabled project.jacocoAndroidUnitTestReport.xml.enabled
+      csv.required.set(project.jacocoAndroidUnitTestReport.csv.enabled)
+      html.required.set(project.jacocoAndroidUnitTestReport.html.enabled)
+      xml.required.set(project.jacocoAndroidUnitTestReport.xml.enabled)
 
-      if (csv.enabled) {
+      if (csv.required.get()) {
         csv.destination new File((destination == null) ? "${project.buildDir}/jacoco/jacoco.csv" : "${destination.trim()}/jacoco.csv")
       }
       
-      if (html.enabled) {
+      if (html.required.get()) {
         html.destination new File((destination == null) ? "${project.buildDir}/jacoco/jacocoHtml" : "${destination.trim()}/jacocoHtml")
       }
 
-      if (xml.enabled) {
+      if (xml.required.get()) {
         xml.destination new File((destination == null) ? "${project.buildDir}/jacoco/jacoco.xml" : "${destination.trim()}/jacoco.xml")
       }
     }
@@ -132,9 +132,9 @@ class JacocoAndroidPlugin implements Plugin<ProjectInternal> {
     logger.info("Added $reportTask")
     logger.info("  executionData: $reportTask.executionData.asPath")
     logger.info("  sourceDirectories: $reportTask.sourceDirectories.asPath")
-    logger.info("  csv.destination: $reportTask.reports.csv.destination")
-    logger.info("  xml.destination: $reportTask.reports.xml.destination")
-    logger.info("  html.destination: $reportTask.reports.html.destination")
+    logger.info("  csv.destination: $reportTask.reports.csv.outputLocation")
+    logger.info("  xml.destination: $reportTask.reports.xml.outputLocation")
+    logger.info("  html.destination: $reportTask.reports.html.outputLocation")
 
   }
 }
